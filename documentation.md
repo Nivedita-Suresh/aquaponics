@@ -264,4 +264,88 @@ If (temperature is HIGH)
 * Reduced manual effort
 * Prevents overfeeding
 * Improves fish health
+```
 
+# 7. Smart Aquaponics Dashboard – Initial Version
+
+**Author:** Nivedita Suresh  
+
+---
+
+## Overview
+
+This module represents the initial graphical user interface (GUI) prototype of the Smart Aquaponics System. The dashboard provides a centralized platform to visualize key environmental parameters and monitor overall system health.
+
+Developed using Flutter, this interface establishes the structural and visual foundation for real-time aquaponics monitoring. The primary objective of this version is to implement a clean, responsive, and modern dashboard layout capable of displaying sensor data and reflecting system status dynamically.
+
+---
+
+## Working Principle
+
+The dashboard displays three primary environmental parameters:
+
+- Water Level (%)
+- pH Level
+- Temperature (°C)
+
+In this initial implementation, these values are simulated within the application to demonstrate interface behavior and control logic. The architecture is designed to allow seamless integration with real-time sensor data in later stages.
+
+The system also includes a visual pump status indicator represented by a toggle-style switch on the interface.
+
+---
+
+## Control Logic (Prototype Version)
+
+In the current simulation logic:
+
+- When the water level falls below 65%, the pump status changes to ON.
+- When the water level rises above the defined threshold, the pump state updates accordingly within the UI.
+
+This logic is implemented purely for simulation and demonstration of dynamic UI behavior.
+
+---
+
+## Final Product Logic (Planned Implementation)
+
+In the final hardware-integrated system:
+
+- The pump will remain continuously ON.
+- No ON/OFF switching based on water level will be implemented.
+
+The pump will operate continuously to:
+
+- Ensure constant water circulation
+- Maintain adequate aeration for fish
+- Support stable nutrient distribution for plants
+- Prevent stagnation within the aquaponics system
+
+Water level monitoring will continue to be used for alerting and diagnostics rather than direct pump control.
+
+---
+
+## Simulation and Output
+
+This prototype provides real-time visual feedback within the dashboard interface:
+
+- Water level displayed as a percentage
+- pH level shown with qualitative status (e.g., Optimal)
+- Temperature displayed in Celsius
+- Pump status visually represented via a toggle indicator
+- System connectivity status displayed as "Connected"
+
+Adjusting simulated values within the application demonstrates dynamic UI updates and state management behavior.
+
+This simulation stage ensures that user interface logic and presentation are validated prior to full hardware integration.
+
+---
+
+## Version Control
+
+The project is maintained using Git-based version control to ensure:
+
+- Structured development workflow
+- Change tracking and revision history
+- Collaborative feature development
+- Code stability and maintainability
+
+The repository will continue evolving toward a fully integrated, production-ready Smart Aquaponics Monitoring Dashboard.
