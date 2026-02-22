@@ -396,6 +396,7 @@ This version is fully simulated and serves as a foundation for future IoT integr
 - **UI Layer:** Stateful dashboard with cards for stats, logs, and graphs.
 
 ---
+## Screenshots
 <img width="907" height="412" alt="image" src="https://github.com/user-attachments/assets/9d2e1f08-de43-4484-9eee-8b87110f79d4" />
 <img width="1600" height="703" alt="image" src="https://github.com/user-attachments/assets/a891cce2-ea1b-48d8-93c1-a57914af2ce4" />
 <img width="899" height="761" alt="image" src="https://github.com/user-attachments/assets/0766c7c1-220e-4bce-857e-9e8f7b61b83f" />
