@@ -349,3 +349,62 @@ The project is maintained using Git-based version control to ensure:
 - Code stability and maintainability
 
 The repository will continue evolving toward a fully integrated, production-ready Smart Aquaponics Monitoring Dashboard.
+
+# 8.Smart Aquaponics Dashboard (Flutter Simulation)                
+**Author:** Nivedita Suresh
+## Project Overview
+
+The **Smart Aquaponics Dashboard** is a Flutter-based mobile application designed to simulate and monitor key parameters of an aquaponics system. It provides real-time sensor simulation, pump control, alert and log tracking, and data visualization.
+
+This version is fully simulated and serves as a foundation for future IoT integration.
+
+---
+
+## Features Implemented
+
+### Sensor Simulation
+- **Water Level:** Simulated between 45%–60%; generates a red alert if below 65%.
+- **pH Level:** Simulated between 6.5–7.5; status categories: Optimal, Balanced, Out of Range.
+- **Temperature:** Simulated for Kerala climate conditions (26°C–34°C); status categories: Optimal, Warning, Critical.
+
+### Pump Control
+- Pump is ON by default.
+- Manual toggle available to simulate control.
+- Clicking generates log entries.
+
+### Alerts and Logs
+- Logs generated for water level, pH, temperature, and pump state changes.
+- Displays timestamp, status message, color, and icon.
+- Maximum 20 recent logs shown.
+
+### Sensor Graph
+- Line chart shows:
+  - Water Level (green)
+  - pH Level (blue)
+- Rolling window of last 24 readings.
+- Curved line visualization for clarity.
+
+### Automatic Data Refresh
+- Sensor simulation updates every 3 seconds using `Timer.periodic`.
+
+---
+
+## Architecture
+
+- **Models:** `LogEntry` for alert storage.
+- **Controller:** Simulates sensors, manages alerts, and updates graph data.
+- **UI Layer:** Stateful dashboard with cards for stats, logs, and graphs.
+
+---
+
+## Dependencies
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  fl_chart: ^0.60.0
+  intl: ^0.18.0
+<img width="907" height="412" alt="image" src="https://github.com/user-attachments/assets/9d2e1f08-de43-4484-9eee-8b87110f79d4" />
+<img width="1600" height="703" alt="image" src="https://github.com/user-attachments/assets/a891cce2-ea1b-48d8-93c1-a57914af2ce4" />
+<img width="899" height="761" alt="image" src="https://github.com/user-attachments/assets/0766c7c1-220e-4bce-857e-9e8f7b61b83f" />
