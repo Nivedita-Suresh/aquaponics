@@ -54,7 +54,7 @@ Operating Logic Level: **3.3V (Not 5V tolerant)**
 | AGND     | Analog Ground    | Clean ADC reference | For analog sensors          |
 | ADC_VREF | ADC Reference    | External analog ref | Optional precision ADC      |
 
-⚠️ Important: GPIO pins operate at **3.3V only**.
+ Important: GPIO pins operate at **3.3V only**.
 
 # 4. GPIO Pins (GP0 – GP28)
 
