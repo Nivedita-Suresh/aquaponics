@@ -16,7 +16,7 @@ The Raspberry Pi Pico H is a microcontroller development board based on the RP20
 
 Operating Logic Level: **3.3V (Not 5V tolerant)**
 
-# 2. Complete Pinout Diagram (40-Pin Layout)
+## 2. Complete Pinout Diagram (40-Pin Layout)
 
 ```
           ┌──────────────────────────┐
@@ -42,7 +42,7 @@ Operating Logic Level: **3.3V (Not 5V tolerant)**
  GP15 20  │                          │ 21  GP16
           └──────────────────────────┘
 
-# 3. Power Pins (Detailed Explanation)
+## 3. Power Pins (Detailed Explanation)
 
 | Pin      | Function         | Description         | Usage in Aquaponics         |
 | -------- | ---------------- | ------------------- | --------------------------- |
@@ -56,7 +56,7 @@ Operating Logic Level: **3.3V (Not 5V tolerant)**
 
  Important: GPIO pins operate at **3.3V only**.
 
-# 4. GPIO Pins (GP0 – GP28)
+## 4. GPIO Pins (GP0 – GP28)
 
 Total usable GPIO pins: **26**
 
@@ -73,7 +73,7 @@ Each GPIO can act as:
 Max current per GPIO: **12 mA**
 Total combined GPIO current: **50 mA**
 
-# 5. Analog Input Pins (ADC)
+## 5. Analog Input Pins (ADC)
 
 | GPIO     | ADC Channel | Use in Aquaponics             |
 | -------- | ----------- | ----------------------------- |
@@ -89,7 +89,7 @@ Best practice:
 * Connect sensor GND to AGND
 * Use stable voltage reference
 
-# 6. PWM Capability
+## 6. PWM Capability
 
 PWM available on almost all GPIO pins.
 
@@ -104,7 +104,7 @@ Example recommended pins:
 * GP15 → Servo
 * GP14 → Pump Relay
 
-# 7. Communication Interfaces
+## 7. Communication Interfaces
 
 ## UART
 
@@ -146,7 +146,7 @@ Used for:
 * TFT displays
 
 
-# 8. Special Function Pins
+## 8. Special Function Pins
 
 | Pin      | Function                  |
 | -------- | ------------------------- |
@@ -156,14 +156,14 @@ Used for:
 | AGND     | Analog ground             |
 
 
-# 9. Internal Temperature Sensor
+## 9. Internal Temperature Sensor
 
 * Connected to ADC4
 * Measures RP2040 chip temperature
 * Useful for enclosure heat monitoring
 
 
-# 10. Recommended Pin Allocation for Your Smart Aquaponics System
+## 10. Recommended Pin Allocation for Your Smart Aquaponics System
 
 | Component          | Suggested GPIO |
 | ------------------ | -------------- |
@@ -176,7 +176,7 @@ Used for:
 | LCD Display        | GP2, GP3       |
 
 
-# 11. Design Precautions
+## 11. Design Precautions
 
 * Never apply 5V directly to GPIO
 * Use relay or transistor for pumps
