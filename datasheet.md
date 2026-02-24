@@ -272,7 +272,7 @@ Ideal for:
 | GND  | Ground         |
 | DATA | Digital signal |
 
-⚠️ Requires 4.7kΩ pull-up resistor between DATA and VCC.
+ Requires 4.7kΩ pull-up resistor between DATA and VCC.
 
 ## 4. Interfacing with Raspberry Pi Pico H
 
@@ -379,8 +379,7 @@ In aquaponics:
 | GND        | AGND        |
 | AO         | GP26 (ADC0) |
 
-⚠️ Ensure output does not exceed 3.3V (use voltage divider if required).
-
+ Ensure output does not exceed 3.3V (use voltage divider if required).
 
 ## 6. Importance in Aquaponics
 
