@@ -399,6 +399,7 @@ This version is fully simulated and serves as a foundation for future IoT integr
 ## Screenshots
 <img width="1578" height="737" alt="Screenshot 2026-02-25 101906" src="https://github.com/user-attachments/assets/23965327-16aa-491b-9097-6c781a6d846c" />
 <img width="1583" height="331" alt="Screenshot 2026-02-25 101929" src="https://github.com/user-attachments/assets/4babf3f7-dc7d-4a72-ba18-dcfa0d888eb5" />
+<img width="1920" height="1080" alt="Screenshot 2026-02-25 105548" src="https://github.com/user-attachments/assets/d8f55e5f-d752-4090-8b1e-89096e22d371" />
 
 ## Dependencies
 
