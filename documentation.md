@@ -415,3 +415,72 @@ dependencies:
     sdk: flutter
   fl_chart: ^0.60.0
   intl: ^0.18.0
+```
+
+# 9.Pico + ESP8266 LED Control using Flutter
+
+**Author:** Nivedita Suresh, Nikhil H  
+**Repository Name:** https://github.com/Nivedita-Suresh/pico-esp8266-led-control/tree/main
+
+---
+
+## Overview
+
+This project demonstrates controlling an LED connected to a **Raspberry Pi Pico** using an **ESP8266 WiFi module** in Access Point mode.  
+
+A **Flutter Windows desktop application** sends HTTP requests to the ESP8266, which forwards them to the Pico via UART. The Pico processes the requests and controls the LED accordingly.  
+
+This creates a simple **IoT communication pipeline** over a local WiFi network without requiring internet access.
+
+---
+
+## System Architecture
+
+Flutter App (HTTP Client)  
+↓  
+ESP8266 (WiFi AP + Web Server)  
+↓  
+Raspberry Pi Pico (MicroPython Controller)  
+↓  
+LED  
+
+---
+
+## Network Configuration
+
+- **SSID:** Pico_LED  
+- **Password:** 12345678  
+- **IP Address:** 192.168.4.1  
+- **Port:** 80  
+
+> The computer must connect to the `Pico_LED` network before running the Flutter app.
+
+---
+
+## Working Principle
+
+1. The Flutter app shows a toggle switch for LED control.  
+2. Toggling sends `/on` or `/off` HTTP requests.  
+3. The ESP8266 receives the request and forwards it to the Pico via UART.  
+4. The Pico controls the LED and sends a response back.  
+5. The Flutter app updates the LED state and connection indicator.
+
+---
+
+## Circuit Diagram
+
+<img width="1589" height="1080" alt="image" src="https://github.com/user-attachments/assets/b183c33a-6501-4161-8177-fdb64a61166e" />
+
+
+---
+
+## Conclusion
+
+This project demonstrates a complete IoT setup with:
+
+- Real-time LED control via WiFi  
+- UART communication between ESP8266 and Raspberry Pi Pico  
+- Simple HTTP-based client-server architecture  
+- Integration of embedded systems with a Flutter desktop application  
+
+It serves as a foundation for expanding into larger IoT systems and modular microcontroller projects.
