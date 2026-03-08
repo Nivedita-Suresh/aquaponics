@@ -471,6 +471,14 @@ LED
 
 <img width="1589" height="1080" alt="image" src="https://github.com/user-attachments/assets/b183c33a-6501-4161-8177-fdb64a61166e" />
 
+---
+
+## References
+
+1. https://microcontrollerslab.com/esp8266-wifi-module-raspberry-pi-pico-web-server/
+2. D. R. Loker, "Raspberry Pi Pico as an IoT Device," in Proceedings of the 2023 ASEE Annual Conference & Exposition, Baltimore, MD, USA, Jun. 2023. [Online]. Available: https://peer.asee.org/raspberry-pi-pico-as-an-iot-device
+3. P. D. P. Adi, A. Kristiyanto, A. Sopandi, I. Nirmala, M. Tahir, and E. Y. Wijaya, "Performance Evaluation of Raspberry Pi Pico for Internet of Things and Its Analysis," in Proceedings of the 2024 4th International Conference on ..., IEEE, 2024. [Online]. Available: https://ieeexplore.ieee.org/
+
 
 ---
 
@@ -484,3 +492,238 @@ This project demonstrates a complete IoT setup with:
 - Integration of embedded systems with a Flutter desktop application  
 
 It serves as a foundation for expanding into larger IoT systems and modular microcontroller projects.
+
+
+
+# 10.Pico + ESP8266 Smart Aquaponics Monitoring Dashboard
+
+**Author:** Nivedita Suresh  
+**Repository Name:** https://github.com/Nivedita-Suresh/aquaponics_app.git
+
+---
+
+## Overview
+
+This project demonstrates a **Smart Aquaponics Monitoring System** using a **Raspberry Pi Pico**, **ESP8266 WiFi module**, and a **Flutter desktop dashboard**.
+
+The Raspberry Pi Pico collects sensor data from:
+
+- **HC-SR04 Ultrasonic Sensor** for water level measurement
+- **DS18B20 Temperature Sensor** for water temperature monitoring
+
+The Pico communicates with an **ESP8266 module via UART**, which hosts a **WiFi Access Point and HTTP server**.  
+
+A **Flutter dashboard application** connects to this local network and periodically retrieves sensor data through HTTP requests, displaying real-time values and graphical history charts.
+
+This setup enables **real-time monitoring of aquaponics parameters without requiring internet access**, making it suitable for embedded IoT environments.
+
+---
+
+## System Architecture
+
+Flutter Desktop Dashboard (HTTP Client)  
+↓  
+ESP8266 (WiFi Access Point + HTTP Server)  
+↓  
+Raspberry Pi Pico (MicroPython Controller)  
+↓  
+Sensors (HC-SR04, DS18B20)
+
+---
+
+## Hardware Components
+
+- Raspberry Pi Pico
+- ESP8266 WiFi Module (ESP-01 / ESP8266)
+- HC-SR04 Ultrasonic Distance Sensor
+- DS18B20 Waterproof Temperature Sensor
+- Breadboard & Jumper Wires
+
+---
+
+## Software Components
+
+### Embedded System
+
+- **MicroPython** running on Raspberry Pi Pico
+- UART communication between Pico and ESP8266
+- ESP8266 controlled using **AT Commands**
+
+### Desktop Application
+
+- **Flutter**
+- **HTTP package** for REST requests
+- **FL Chart package** for real-time graphs
+- **thonny**
+---
+
+## Network Configuration
+
+- **SSID:** Pico_Sensors  
+- **Password:** 12345678  
+- **IP Address:** 192.168.4.1  
+- **Port:** 80  
+
+> The computer must connect to the `Pico_Sensors` WiFi network before running the Flutter dashboard.
+
+---
+
+## Working Principle
+
+1. The **ESP8266 starts in Access Point mode** and hosts an HTTP server.
+2. The **Raspberry Pi Pico communicates with the ESP8266 using UART**.
+3. When the Flutter app sends an HTTP request: http://192.168.4.1
+4. The ESP8266 forwards the request to the Pico.
+5. The Pico reads sensor data:
+- Water level from **HC-SR04**
+- Temperature from **DS18B20**
+6. The Pico formats the data as an HTTP response: **Distance: XX cm
+Temperature: XX.X C**
+7. The ESP8266 sends the response back to the Flutter app.
+8. The Flutter dashboard:
+   - Displays live sensor readings
+   - Updates system connection status
+   - Stores values in history lists
+   - Displays real-time **line graphs**
+
+---
+
+## Sensor Functionality
+
+### Water Level Monitoring
+
+The **HC-SR04 ultrasonic sensor** measures the distance between the sensor and the water surface.
+
+- Smaller distance → higher water level
+- Larger distance → lower water level
+
+This value is displayed in the dashboard as **Water Level (cm)**.
+
+---
+
+### Temperature Monitoring
+
+The **DS18B20 digital temperature sensor** measures water temperature.
+
+Steps performed by the Pico:
+
+1. Scan for connected sensors
+2. Start temperature conversion
+3. Wait for conversion
+4. Read temperature value
+
+The Flutter app displays this value as **Water Temperature (°C)**.
+
+---
+
+## Flutter Dashboard Features
+
+### Real-Time Monitoring
+
+The dashboard fetches data every **2 seconds** from the ESP8266 server.
+
+---
+
+### Sensor Cards
+
+The UI shows three sensor panels:
+
+- **Water Level**
+- **pH Level** (currently static value)
+- **Temperature**
+
+Each card shows:
+
+- Current value
+- Status indicator
+- Color-coded label
+
+---
+
+### Connection Indicator
+
+The app displays a **connection status indicator** in the AppBar.
+
+- 🟢 Connected → Data received successfully
+- 🔴 Disconnected → HTTP request failed
+
+---
+
+### System Status
+
+Displays pump status information for the aquaponics system.
+
+Example: **pump on**
+
+
+This can later be extended to include **pump control via HTTP commands**.
+
+---
+
+### Historical Data Graphs
+
+The Flutter dashboard stores the **last 20 readings** and displays:
+
+1. **Water Level History Graph**
+2. **Temperature History Graph**
+
+Graphs are drawn using **FL Chart** with smooth curved lines.
+
+---
+
+## Data Flow
+
+Sensor Reading  
+↓  
+Raspberry Pi Pico  
+↓ UART Communication  
+ESP8266 HTTP Server  
+↓ WiFi  
+Flutter Desktop Dashboard  
+↓  
+Visualization & Graphs
+
+---
+
+## Future Improvements
+
+Possible enhancements include:
+
+- Real **pH sensor integration**
+- **Automatic pump control**
+- **Mobile Flutter app support**
+- **Cloud database logging**
+- **Remote monitoring via internet**
+- **Notification alerts for abnormal conditions**
+
+---
+
+## References
+
+1. https://www.youtube.com/watch?v=NkBL_VxJ77g
+
+---
+
+## Circuit,  Circuit Diagram and App Screenshots
+
+<img width="739" height="513" alt="image" src="https://github.com/user-attachments/assets/c8de0bcd-29b6-445d-be32-abfefdba00f2" />
+
+<img width="314" height="232" alt="image" src="https://github.com/user-attachments/assets/41ecc95d-5c84-4ba3-a7eb-eaba505ecb10" />
+
+<img width="971" height="509" alt="image" src="https://github.com/user-attachments/assets/377fde95-a691-4958-b5db-395febc2d453" />
+
+---
+
+## Conclusion
+
+This project demonstrates a complete **embedded IoT monitoring system** integrating:
+
+- Raspberry Pi Pico microcontroller
+- ESP8266 WiFi networking
+- Sensor data acquisition
+- UART-based microcontroller communication
+- Flutter-based visualization dashboard
+
+The system provides **real-time monitoring and graphical visualization of aquaponics parameters**, serving as a strong foundation for building advanced **smart farming and IoT-based environmental monitoring systems**.
+
+
