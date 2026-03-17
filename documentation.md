@@ -726,4 +726,247 @@ This project demonstrates a complete **embedded IoT monitoring system** integrat
 
 The system provides **real-time monitoring and graphical visualization of aquaponics parameters**, serving as a strong foundation for building advanced **smart farming and IoT-based environmental monitoring systems**.
 
+---
 
+# 11. Smart Fish Tank Pump Control System
+
+**Author:** Nivedita Suresh, Nikhil H  
+
+---
+
+# Overview
+---
+
+A **wireless + automatic pump control system** built using **Raspberry Pi Pico, ESP8266, relay modules, and an ultrasonic sensor**.
+
+The system automatically maintains the water level in a fish tank while allowing **manual wireless control through a web interface**.
+
+This project is part of a **Smart Aquaponics / Fish Tank Monitoring System**.
+
+---
+
+# Features
+
+- Automatic **water level monitoring**
+- Automatic **pump activation**
+- **Manual wireless enable/disable control**
+- **Dual relay safety logic**
+- Pump runs **only if manual relay is enabled**
+- Real-time **web dashboard**
+- Integration with:
+  - DS18B20 temperature sensor
+  - Servo fish feeder
+  - ESP8266 WiFi module
+
+---
+
+# System Architecture
+
+```
+           WiFi Web Interface
+                  │
+                  │
+               ESP8266
+                  │ UART
+                  │
+          Raspberry Pi Pico
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+ Ultrasonic Sensor     Pump Control
+   (Water Level)            │
+                            │
+                     Manual Relay
+                       (Enable)
+                            │
+                            │
+                     Pump Relay
+                       (Auto)
+                            │
+                            │
+                          Pump
+```
+
+---
+
+# Pump Control Logic
+
+The system uses **two relays**:
+
+1. **Manual Relay**
+2. **Automatic Pump Relay**
+
+The pump runs **only when both relays allow it**.
+
+## Logic Flow
+
+```
+Manual Pump Enabled?
+        │
+        ├── NO → Pump OFF
+        │
+        └── YES
+               │
+        Water Level Low?
+               │
+         ├── NO → Pump OFF
+         │
+         └── YES → Pump ON
+```
+
+---
+
+# Relay Logic Table
+
+| Manual Relay | Pump Relay | Inlet Pump | Outlet Pump |
+|---------------|-------------|-----------|--------------|
+| OFF | Any | OFF | OFF |
+| ON | OFF | OFF | ON |
+| ON | ON | ON | ON |
+
+---
+
+# Hardware Components
+
+| Component | Quantity |
+|-----------|----------|
+| Raspberry Pi Pico / Pico H | 1 |
+| ESP8266 ESP-01 | 1 |
+| Relay Module | 2 |
+| Ultrasonic Sensor (HC-SR04) | 1 |
+| DS18B20 Temperature Sensor | 1 |
+| Servo Motor | 1 |
+| 12V DC Water Pump | 1 |
+| 12V Adapter | 1 |
+| Flyback Diode (1N4007) | 1 |
+
+---
+
+# GPIO Connections
+
+## Raspberry Pi Pico
+
+| Device | Pico Pin |
+|------|------|
+| ESP8266 TX | GP1 |
+| ESP8266 RX | GP0 |
+| Ultrasonic Trigger | GP19 |
+| Ultrasonic Echo | GP26 |
+| DS18B20 Data | GP18 |
+| Servo Motor | GP15 |
+| Pump Relay | GP14 |
+| Manual Relay | GP13 |
+
+---
+
+# Relay Module Connections
+
+| Relay Pin | Connection |
+|-----------|------------|
+| VCC | 5V |
+| GND | GND |
+| IN | Pico GPIO |
+
+---
+
+# Pump Wiring
+
+```
+12V Adapter (+)
+       │
+       │
+   COM (Manual Relay)
+       │
+       │
+    NO
+       │
+       │
+   COM (Pump Relay)
+       │
+       │
+    NO
+       │
+     Pump +
+Pump − ───────── Adapter −
+```
+
+---
+
+
+# WiFi Configuration
+
+The ESP8266 creates a **WiFi Access Point**.
+
+```
+SSID: Pico_Sensors
+Password: 12345678
+```
+
+Open the dashboard at:
+
+```
+http://192.168.4.1
+```
+
+---
+
+# Web Interface
+
+The webpage displays:
+
+- Water level
+- Pump status
+- Temperature
+- pH placeholder
+- Pump control buttons
+
+Example display:
+
+```
+Fish Tank Status
+
+Water Distance: 12 cm
+Pump Status: Enabled - Waiting
+Temperature: 27.4 °C
+pH Level: 7.0
+
+[ Enable Pump ]
+[ Disable Pump ]
+```
+
+---
+
+# Web Controls
+
+| Button | Function |
+|------|------|
+| Enable Pump | Allows automatic pump operation |
+| Disable Pump | Stops the pump completely |
+
+---
+
+# Software Stack
+
+- MicroPython
+- ESP8266 AT Firmware
+- UART Communication
+- HTTP Web Server
+- Sensor Data Processing
+
+---
+
+# Future Improvements
+
+- Mobile dashboard
+- pH sensor integration
+- Dissolved oxygen monitoring
+- Water level alerts
+- MQTT cloud monitoring
+- Manual fish feeding from web interface
+
+---
+
+
+# Project Goal
+
+To build a **smart aquaponics monitoring system** that automates fish tank management while allowing **remote monitoring and control**.
