@@ -741,8 +741,6 @@ A **wireless + automatic pump control system** built using **Raspberry Pi Pico, 
 
 The system automatically maintains the water level in a fish tank while allowing **manual wireless control through a web interface**.
 
-This project is part of a **Smart Aquaponics / Fish Tank Monitoring System**.
-
 ---
 
 # Features
@@ -753,10 +751,6 @@ This project is part of a **Smart Aquaponics / Fish Tank Monitoring System**.
 - **Dual relay safety logic**
 - Pump runs **only if manual relay is enabled**
 - Real-time **web dashboard**
-- Integration with:
-  - DS18B20 temperature sensor
-  - Servo fish feeder
-  - ESP8266 WiFi module
 
 ---
 
@@ -834,8 +828,6 @@ Manual Pump Enabled?
 | ESP8266 ESP-01 | 1 |
 | Relay Module | 2 |
 | Ultrasonic Sensor (HC-SR04) | 1 |
-| DS18B20 Temperature Sensor | 1 |
-| Servo Motor | 1 |
 | 12V DC Water Pump | 1 |
 | 12V Adapter | 1 |
 | Flyback Diode (1N4007) | 1 |
@@ -848,12 +840,8 @@ Manual Pump Enabled?
 
 | Device | Pico Pin |
 |------|------|
-| ESP8266 TX | GP1 |
-| ESP8266 RX | GP0 |
 | Ultrasonic Trigger | GP19 |
 | Ultrasonic Echo | GP26 |
-| DS18B20 Data | GP18 |
-| Servo Motor | GP15 |
 | Pump Relay | GP14 |
 | Manual Relay | GP13 |
 
@@ -955,18 +943,131 @@ pH Level: 7.0
 
 ---
 
-# Future Improvements
 
-- Mobile dashboard
-- pH sensor integration
-- Dissolved oxygen monitoring
-- Water level alerts
-- MQTT cloud monitoring
-- Manual fish feeding from web interface
+
+# **12. Smart Aquaponics System Setup & Physical Integration**
+
+**Author:** Nivedita Suresh, Nikhil H  
 
 ---
 
+## **Overview**
 
-# Project Goal
+This module describes the **complete physical setup and integration** of the Smart Aquaponics System. It focuses on assembling the aquarium, grow bed, water circulation system, and structural components into a functional prototype.
 
-To build a **smart aquaponics monitoring system** that automates fish tank management while allowing **remote monitoring and control**.
+The objective of this stage was to convert the individually tested modules into a **working real-world system structure**, ensuring proper water flow, stability, and component placement.
+
+---
+
+## **System Structure**
+
+The aquaponics system is built using simple, cost-effective, and easily available materials:
+
+- A **reused refrigerator tub** is used as the **fish tank (aquarium)**
+- A **large PVC pipe** is used as the **grow bed**
+- **Plastic cups (glasses)** are used as **plant holders (net pots)**
+
+This design ensures a lightweight, modular, and scalable system suitable for small-scale aquaponics implementation.
+
+---
+
+## **Mechanical Setup**
+
+### **Fish Tank (Aquarium)**  
+The refrigerator tub serves as the main water reservoir where:
+- Fish will be housed  
+- Sensors can be installed for monitoring  
+
+---
+
+### **Grow Bed Construction**  
+The PVC pipe acts as the grow bed and is positioned above the fish tank.  
+
+- Multiple holes are **drilled along the pipe**  
+- These holes are sized to fit the plastic cups  
+- The cups hold the plants and allow roots to extend into the flowing water  
+
+This setup enables efficient nutrient absorption while maintaining proper plant support.
+
+---
+
+### **Water Circulation Setup**
+
+- A pipe is connected from the pump outlet to the grow bed  
+- Water is pumped upward into the PVC pipe  
+- After passing through the plants, water returns to the tank via **a second pipe**this system is set up so that both flows are controllable by us
+
+This creates a **closed-loop water circulation system**, which is the core of aquaponics.
+
+---
+
+## **Assembly Process**
+
+The system was assembled step-by-step as follows:
+
+1. The refrigerator tub was cleaned and prepared as the fish tank  
+2. The PVC pipe was cut and drilled to create plant slots  
+3. Plastic cups were fitted into the drilled holes  
+4. The water pump was installed to the side of pipe 
+5. The pipe was securely connected to the pump outlet  
+6. The grow bed was positioned above the tank  
+7. All components were aligned and fixed to ensure stability  
+
+---
+
+## **System Integration Status**
+
+- The **hardware setup is fully assembled and functional**  
+- Water circulation through the pump and pipe system is working correctly  
+- The **sensor modules and embedded system are operational**  
+- The **Flutter dashboard successfully communicates with the hardware via ESP8266**  
+
+Although the system has not yet been deployed in a **live aquaponics environment (with fish and plants)**, both:
+
+- **Hardware system**
+- **Software/dashboard system**
+
+have been tested independently and in integration, confirming proper communication and operation.
+
+---
+
+## **screenshots, photographs and circute diagrams**
+
+<img width="187.5" height="131.7" alt="image" src="https://github.com/user-attachments/assets/d6640466-8495-4f16-b11f-1e2b895ad34d" />
+
+<img width="234.6" height="141.3" alt="image" src="https://github.com/user-attachments/assets/aa159965-b8c1-4a5d-9417-85759b698ed4" />
+
+
+<img width="230.7" height="161.4" alt="image" src="https://github.com/user-attachments/assets/054c5c1d-5a87-4410-b29f-463e76ff8c0c" />
+
+
+<img width="188.8" height="85.7" alt="image" src="https://github.com/user-attachments/assets/c482d44d-06fe-477a-adb2-8b2bfa2aca71" />
+
+
+<img width="188.8" height="85.7" alt="image" src="https://github.com/user-attachments/assets/0ddcc9a2-60b4-4319-86b9-076da3736156" />
+
+
+---
+
+## **Design Advantages**
+
+- **Low-cost implementation** using reused materials  
+- **Simple and modular design**  
+- Easy to assemble and maintain  
+- Scalable for larger systems  
+- Efficient water circulation using gravity  
+
+---
+
+## **code**
+
+code is updated as final.dart and final.py
+future edits will be made to it
+
+---
+
+## **Conclusion**
+
+The system setup phase successfully transformed the conceptual design into a **physically working aquaponics prototype**. The integration of the tank, grow bed, and pump establishes a reliable water circulation mechanism.
+
+With both hardware and software functioning correctly, the system is now ready for **real-time deployment with plants and fish**, forming the foundation for a fully automated smart aquaponics ecosystem.
