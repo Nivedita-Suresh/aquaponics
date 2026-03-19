@@ -17,41 +17,44 @@ roms = ds.scan()
 
 print("DS18B20 Found:", roms)
 
-# ---------------- SERVO SETUP ----------------
+# ---------------- SERVO ----------------
 servo = PWM(Pin(15))
 servo.freq(50)
 servo.duty_u16(1500)
 
-# ---------------- RELAY SETUP ----------------
-relay_pump = Pin(14, Pin.OUT)      # pump relay (auto)
-relay_enable = Pin(13, Pin.OUT)    # manual enable relay
+# ---------------- RELAY ----------------
+relay_pump = Pin(14, Pin.OUT)
+relay_enable = Pin(13, Pin.OUT)
 
 manual_pump = True
+esp_busy = False
 
-# ---------------- FEEDING TIMER ----------------
-FEEDING_INTERVAL = 8   # seconds (change to 8*60*60 for 8 hours)
+# ---------------- SENSOR STORAGE ----------------
+latest_distance = 0
+latest_temperature = 0
+ph_value = 7.0
+
+# ---------------- FEED TIMER ----------------
+FEEDING_INTERVAL = 20
 last_feeding_time = time.time()
 
-# ---------------- FISH FEED FUNCTION ----------------
+# ---------------- FEED FUNCTION ----------------
 def feed_fish():
     print("🐟 Feeding Fish...")
-
     servo.duty_u16(4900)
     time.sleep(1)
-
     servo.duty_u16(1500)
     time.sleep(1)
-
     print("Feeding Complete ✅")
 
-# ---------------- ESP COMMAND FUNCTION ----------------
+# ---------------- ESP COMMAND ----------------
 def send_at(cmd, delay=2):
     uart.write(cmd + "\r\n")
     time.sleep(delay)
     if uart.any():
         print(uart.read())
 
-# ---------------- SETUP ESP8266 ----------------
+# ---------------- SETUP ESP ----------------
 send_at("AT+RST", 3)
 send_at("AT+CWMODE=2")
 send_at('AT+CWSAP="Pico_Sensors","12345678",5,3')
@@ -65,49 +68,8 @@ print("Open: http://192.168.4.1")
 # ---------------- MAIN LOOP ----------------
 while True:
 
-    # -------- Fish Feeding Timer --------
-    current_time = time.time()
-    if current_time - last_feeding_time >= FEEDING_INTERVAL:
-        feed_fish()
-        last_feeding_time = current_time
-
-    # -------- WATER DISTANCE --------
-    try:
-        distance = int(distance_sensor.distance_cm())
-    except:
-        distance = -1
-
-    # -------- TEMPERATURE --------
-    temperature = 0
-    if len(roms) > 0:
-        ds.convert_temp()
-        time.sleep_ms(750)
-        temperature = ds.read_temp(roms[0])
-
-    # -------- PH PLACEHOLDER --------
-    ph_value = 7.0
-
-    # -------- RELAY CONTROL --------
-    pump_status = "OFF"
-
-    if manual_pump:
-        relay_enable.value(1)
-
-        if distance < 5 and distance != -1:
-            relay_pump.value(1)
-            pump_status = "ON (Auto Filling)"
-        else:
-            relay_pump.value(0)
-            pump_status = "Enabled - Waiting"
-
-    else:
-        relay_enable.value(0)
-        relay_pump.value(0)
-        pump_status = "Disabled"
-
-    # -------- ESP8266 REQUEST --------
+    # ========= 1. HANDLE WEB FIRST =========
     if uart.any():
-
         raw = uart.read()
 
         try:
@@ -115,70 +77,90 @@ while True:
         except:
             continue
 
-        print("Received:", data)
+        print("RAW DATA:\n", data)
 
         if "+IPD," in data:
             try:
-                start = data.find("+IPD,") + 5
-                link_id = data[start:start+1]
+                esp_busy = True  # LOCK
 
-                # -------- BUTTON CONTROL --------
+                start = data.find("+IPD,") + 5
+                link_id = data[start]
+
+                # ---- BUTTON CONTROL ----
                 if "/pump_on" in data:
                     manual_pump = True
-                    print("Pump ENABLED")
 
                 if "/pump_off" in data:
                     manual_pump = False
-                    print("Pump DISABLED")
 
-                # -------- WEB PAGE --------
-                body = """
-                <html>
-                <head>
-                <meta http-equiv="refresh" content="5">
-                <title>Fish Tank Monitor</title>
-                </head>
-                <body>
-
-                <h1>🐟 Fish Tank Status</h1>
-
-                <p><b>Water Distance:</b> {} cm</p>
-                <p><b>Pump Status:</b> {}</p>
-                <p><b>Temperature:</b> {:.2f} °C</p>
-                <p><b>pH Level:</b> {:.2f}</p>
-
-                <br>
-
-                <a href="/pump_on">
-                <button style="font-size:20px;">Enable Pump</button>
-                </a>
-
-                <a href="/pump_off">
-                <button style="font-size:20px;">Disable Pump</button>
-                </a>
-
-                </body>
-                </html>
-                """.format(distance, pump_status, temperature, ph_value)
+                # ---- FAST RESPONSE (NO DELAY) ----
+                body = """<h2>🐟 Fish Tank</h2>
+Distance: {} cm<br>
+Pump: {}<br>
+Temp: {:.2f} C<br>
+pH: {:.2f}<br><br>
+<a href="/pump_on">Enable Pump</a><br>
+<a href="/pump_off">Disable Pump</a>
+""".format(latest_distance, 
+           "ON (Auto)" if manual_pump else "Disabled",
+           latest_temperature, ph_value)
 
                 response = (
                     "HTTP/1.1 200 OK\r\n"
                     "Content-Type: text/html\r\n"
-                    "Content-Length: {}\r\n"
                     "Connection: close\r\n"
                     "\r\n"
                     "{}"
-                ).format(len(body), body)
+                ).format(body)
 
                 uart.write("AT+CIPSEND={},{}\r\n".format(link_id, len(response)))
-                time.sleep(1)
+                time.sleep(0.5)
+
+                if uart.any():
+                    print("CIPSEND:", uart.read())
 
                 uart.write(response)
 
                 time.sleep(1)
+
                 uart.write("AT+CIPCLOSE={}\r\n".format(link_id))
+
+                esp_busy = False  # UNLOCK
 
             except Exception as e:
                 print("Error:", e)
+                esp_busy = False
 
-    time.sleep(1)
+    # ========= 2. SENSOR UPDATE (NON-BLOCKING) =========
+    try:
+        latest_distance = int(distance_sensor.distance_cm())
+    except:
+        latest_distance = -1
+
+    if len(roms) > 0:
+        ds.convert_temp()
+        time.sleep_ms(100)  # reduced delay
+        try:
+            latest_temperature = ds.read_temp(roms[0])
+        except:
+            pass
+
+    # ========= 3. FEEDING (SAFE) =========
+    current_time = time.time()
+    if current_time - last_feeding_time >= FEEDING_INTERVAL and not esp_busy:
+        feed_fish()
+        last_feeding_time = current_time
+
+    # ========= 4. RELAY CONTROL =========
+    if manual_pump:
+        relay_enable.value(1)
+
+        if latest_distance < 5 and latest_distance != -1:
+            relay_pump.value(1)
+        else:
+            relay_pump.value(0)
+    else:
+        relay_enable.value(0)
+        relay_pump.value(0)
+
+    time.sleep(0.2)
