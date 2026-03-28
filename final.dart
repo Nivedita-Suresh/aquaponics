@@ -470,7 +470,7 @@ class _DashboardState extends State<Dashboard> {
                     child: ListTile(
                       leading: const Icon(Icons.water),
                       title: const Text('Pump'),
-                      subtitle: Text(pump1On ? 'ON' : 'OFF'),
+                      subtitle: Text(pump1On ? 'OFF' : 'ON'),
                       trailing: Switch(
                         value: pump1On,
                         onChanged: null,
