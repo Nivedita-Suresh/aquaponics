@@ -1046,6 +1046,7 @@ have been tested independently and in integration, confirming proper communicati
 
 <img width="188.8" height="85.7" alt="image" src="https://github.com/user-attachments/assets/0ddcc9a2-60b4-4319-86b9-076da3736156" />
 
+<img width="174.25" height="149.5" alt="image" src="https://github.com/user-attachments/assets/dde2d5ea-aa49-4dc5-a7b9-ccb7f25b5223" />
 
 ---
 
