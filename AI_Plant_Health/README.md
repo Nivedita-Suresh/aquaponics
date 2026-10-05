@@ -1,4 +1,4 @@
-# 🌱 AI-Based Plant Health Monitoring for Smart Aquaponics
+# 🌱 AI-Based Plant Health Monitoring for  Aquaponics
 
 ## 📌 Project Overview
 
