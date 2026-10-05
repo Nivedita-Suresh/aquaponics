@@ -16,19 +16,14 @@ The AI-based result can eventually be combined with sensor parameters such as **
 
 # 🎯 Objectives
 
-The main objectives of the AI-based plant health monitoring module are:
 
-- To develop an image-based plant health monitoring system.
-- To capture plant images using a camera.
-- To preprocess captured images before classification.
-- To develop and train a deep learning model for plant image classification.
-- To identify visible plant health conditions based on the trained classes.
-- To reduce dependence on continuous manual plant inspection.
-- To support early identification of visible plant stress or disease symptoms.
-- To integrate AI-based plant monitoring with the existing aquaponics monitoring system.
-- To provide a foundation for future real-time deployment using Raspberry Pi.
-- To combine image-based plant information with water-quality parameters for improved monitoring.
-
+- Develop an image-based plant health monitoring system.
+- Capture and preprocess plant images for AI classification.
+- Train a deep learning model to identify visible plant health conditions.
+- Enable early detection of plant stress or disease symptoms.
+- Reduce the need for continuous manual inspection.
+- Integrate AI monitoring with aquaponics water-quality parameters.
+- Provide a foundation for Raspberry Pi-based real-time monitoring.
 ---
 
 # 🌿 Motivation
@@ -49,13 +44,13 @@ Water Condition
 These parameters provide information about the growing environment.
 However:
 
-Camera
+**Camera
    ↓
 Plant Image
    ↓
 Leaf Appearance
    ↓
-Visual Plant Condition
+Visual Plant Condition**
 
 
 provides complementary information about the plant itself.
@@ -78,13 +73,13 @@ The camera continuously monitors the visible condition of the plants and provide
 ### Image Acquisition Process
 
 
-Plant
+**Plant
    ↓
 Camera Module
    ↓
 Raspberry Pi
    ↓
-Captured Plant Image
+Captured Plant Image**
 
              
 ## 2. 🖼️ Image Preprocessing
@@ -103,13 +98,13 @@ The preprocessing ensures that the captured image is compatible with the trained
 ### Preprocessing Workflow
 
 
-Captured Image
+**Captured Image
       ↓
 Resize Image
       ↓
 Normalize Pixel Values
       ↓
-Convert to Model Input
+Convert to Model Input**
 
 
 ## 3. 🧠 Deep Learning Model
@@ -128,7 +123,7 @@ The trained model learns visual characteristics such as:
 
 The trained model is stored as:
 
-`plant_model.keras`
+plant_model.keras
 
 The model can later be loaded into the Raspberry Pi for plant health prediction.
 
@@ -141,7 +136,7 @@ The AI model is trained using a labelled plant image dataset.
 The dataset is divided into training and validation data.
 
 
-Plant Image Dataset
+**Plant Image Dataset
         ↓
 Dataset Preparation
         ↓
@@ -151,7 +146,7 @@ Deep Learning Model
         ↓
 Model Training
         ↓
-Trained Model
+Trained Model**
 
 ## 5. 📊 Training and Validation
 
@@ -184,8 +179,9 @@ The model processes the image and predicts the corresponding plant health class.
 
 ### Prediction Workflow
 
-`t
-New Plant Image
+
+
+**New Plant Image
        ↓
 Image Preprocessing
        ↓
@@ -195,7 +191,7 @@ Prediction
        ↓
 Plant Health Class
        ↓
-Dashboard / Alert
+Dashboard / Alert**
 
 
 
